@@ -1,80 +1,89 @@
 [{
-	"price":1299,
+    "price":12.99,
 	"name":"Blink-182 Greatest Hits",
 	"available":98,
     "threshold":50,
     "points":1,
     "bulk":true,
+    "weight":1.0,
 	"id":"1"},
 
 	{
-	"price":1499,
+    "price":14.99,
 	"name":"Let it Be",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":false,
+    "weight":0,
 	"id":"2"},
 
 	{
-	"price":999,
+    "price":9.99,
 	"name":"Bohemian Rhapsodey",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":false,
+    "weight":0,
 	"id":"3"},
 
 	{
-	"price":1999,
+    "price":19.99,
 	"name":"Greenday",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":false,
+    "weight":0,
 	"id":"4"},
 
 	{
-	"price":1999,
+    "price":19.99,
 	"name":"ACDC T-Shirt",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":true,
+    "weight":1.0,
 	"id":"5"},
 
 	{
-	"price":699,
+    "price":6.99,
 	"name":"Linkin Park Shirt",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":true,
+    "weight":1.0,
 	"id":"6"},
 
 	{
-	"price":799,
+    "price":7.99,
 	"name":"Nirvana Shirt",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":true,
+    "weight":1.0,
 	"id":"7"},
 
 	{
-	"price":1299,
+    "price":12.99,
 	"name":"Red Hot Chilli Peppers Shirt",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":false,
+    "weight":0,
 	"id":"8"},
 
 	{
-	"price":899,
+    "price":8.99,
 	"name":"Beatles Shirt",
 	"available":100,
     "threshold":50,
     "points":1,
     "bulk":true,
+    "weight":1.0,
 	"id":"9"}]

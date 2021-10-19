@@ -17,6 +17,7 @@ import org.json.simple.parser.ParseException;
 	 
 	 ArrayList<inventory> invArr  = new ArrayList<inventory>();
 	 ArrayList<loyaltyAccounts> loyaltyAccArr = new ArrayList<loyaltyAccounts>();
+	 ArrayList<bankInfo> bankInfoArr = new ArrayList<bankInfo>();
 	
 	/**
 	 * 
@@ -27,6 +28,7 @@ import org.json.simple.parser.ParseException;
 	 * @throws FileNotFoundException
 	 * @throws ParseException
 	 * @throws IOException
+	 * Author: Cantrell Picou Jr.
 	 */
 	public void createLoyaltyAcc(String name, String phoneNumber, String pin) throws FileNotFoundException, ParseException, IOException {
 		
@@ -61,6 +63,7 @@ import org.json.simple.parser.ParseException;
 	 * @throws FileNotFoundException
 	 * @throws ParseException
 	 * @throws IOException
+	 * Author: Cantrell Picou Jr.
 	 */
 	public void addPoints(String phoneNumber, int points) throws FileNotFoundException, ParseException, IOException {
 		
@@ -106,6 +109,7 @@ import org.json.simple.parser.ParseException;
 	 * @throws FileNotFoundException
 	 * @throws ParseException
 	 * @throws IOException
+	 * Author: Cantrell Picou Jr.
 	 */
 	public void subtractPoints(String phoneNumber, int points) throws FileNotFoundException, ParseException, IOException {
 		
@@ -151,6 +155,7 @@ import org.json.simple.parser.ParseException;
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws ParseException
+	 * Author: Cantrell Picou Jr.
 	 */
 	public void decreaseInventoryQuantity(String itemId, int quantity) throws FileNotFoundException, IOException, ParseException {
 		
@@ -183,6 +188,7 @@ import org.json.simple.parser.ParseException;
 					.replace("\"threshold", "\n\t\"threshold")
 					.replace("\"points", "\n\t\"points")
 					.replace("\"bulk", "\n\t\"bulk")
+					.replace("\"weight", "\n\t\"weight")
 					.replace("},{", "},\n\n\t{")
 					);
 			
@@ -203,6 +209,7 @@ import org.json.simple.parser.ParseException;
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws ParseException
+	 * Author: Cantrell Picou Jr.
 	 */
 	public void increaseInventoryQuantity(String itemId, int quantity) throws FileNotFoundException, IOException, ParseException {
 		
@@ -235,6 +242,7 @@ import org.json.simple.parser.ParseException;
 					.replace("\"threshold", "\n\t\"threshold")
 					.replace("\"points", "\n\t\"points")
 					.replace("\"bulk", "\n\t\"bulk")
+					.replace("\"weight", "\n\t\"weight")
 					.replace("},{", "},\n\n\t{")
 					);
 			
@@ -254,6 +262,7 @@ import org.json.simple.parser.ParseException;
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws ParseException
+	 * Author: Cantrell Picou Jr.
 	 */
 	public ArrayList<inventory> invArr() throws FileNotFoundException, IOException, ParseException {
 		
@@ -266,11 +275,11 @@ import org.json.simple.parser.ParseException;
 			
 			JSONObject arrItem = (JSONObject) itterate.next();
 			
-			float price = ((float) arrItem.get("price"));
+			float price = Float.parseFloat(String.valueOf(arrItem.get("price")));
 			String name = (String) arrItem.get("name");
-			int available = (int) arrItem.get("availble");
-			int threshold = (int) arrItem.get("threshold");
-			int points = (int) arrItem.get("points");
+			int available = Integer.parseInt(String.valueOf(arrItem.get("available")));
+			int threshold = Integer.parseInt(String.valueOf(arrItem.get("threshold")));
+			int points = Integer.parseInt(String.valueOf(arrItem.get("points")));
 			Boolean bulk = (Boolean) arrItem.get("bulk");
 			String id = (String) arrItem.get("id");
 			
@@ -283,10 +292,124 @@ import org.json.simple.parser.ParseException;
 	
 	/**
 	 * 
+	 * @param cc1
+	 * @param cc2
+	 * @param amnt
+	 * @throws FileNotFoundException
+	 * @throws ParseException
+	 * @throws IOException
+	 */
+	void incAccBal(String cc, double amnt) throws FileNotFoundException, ParseException, IOException {
+		
+		JSONParser parser = new JSONParser();
+		JSONArray arr = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json"));
+		
+		Iterator itterate = arr.iterator();
+		
+		while(itterate.hasNext()) {
+			
+			JSONObject arrItem = (JSONObject) itterate.next();
+			
+			String ccNum1 = (String) arrItem.get("creditCard-1");
+			Double acctBal1 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-1")));
+			String ccNum2 = (String) arrItem.get("creditCard-2");
+			Double acctBal2 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-2")));
+			
+			if(cc.equals(ccNum1)) {
+				
+				arrItem.put("accountBalance-1", acctBal1 + amnt);
+				
+			} else if (cc.equals(ccNum2)) {
+				
+				arrItem.put("accountBalance-2", acctBal2 + amnt);
+			}
+			
+		}
+		
+		PrintWriter pw = new PrintWriter("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json");
+		
+		pw.write(arr.toJSONString()
+				.replace("\"name", "\n\t\"name")
+				.replace("\"accountnumber-1", "\n\t\"accountnumber-1")
+				.replace("\"accountBalance-1", "\n\t\"accountBalance-1")
+				.replace("\"creditCard-1", "\n\t\"creditCard-1")
+				.replace("\"pin-1", "\n\t\"pin-1")
+				.replace("\"accountnumber-2", "\n\t\"accountnumber-2")
+				.replace("\"accountBalance-2", "\n\t\"accountBalance-2")
+				.replace("\"creditcard-2", "\n\t\"creditcard-2")
+				.replace("\"pin-2", "\n\t\"pin-2")
+				.replace("},{", "},\n\n\t{")
+				);
+		
+		pw.flush();
+		pw.close();
+		
+	}
+	
+	/**
+	 * 
+	 * @param cc1
+	 * @param cc2
+	 * @param amnt
+	 * @throws FileNotFoundException
+	 * @throws ParseException
+	 * @throws IOException
+	 */
+	void decAccBal(String cc, double amnt) throws FileNotFoundException, ParseException, IOException {
+		
+		JSONParser parser = new JSONParser();
+		JSONArray arr = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json"));
+		
+		Iterator itterate = arr.iterator();
+		
+		while(itterate.hasNext()) {
+			
+			JSONObject arrItem = (JSONObject) itterate.next();
+			
+			String ccNum1 = (String) arrItem.get("creditCard-1");
+			Double acctBal1 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-1")));
+			String ccNum2 = (String) arrItem.get("creditCard-2");
+			Double acctBal2 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-2")));
+			
+			if(cc.equals(ccNum1)) {
+				
+				arrItem.put("accountBalance-1", acctBal1 - amnt);
+				
+			} else if(cc.equals(ccNum2)) {
+				
+				arrItem.put("accountBalance-2", acctBal2 - amnt);
+				
+			}
+			
+		}
+		
+		PrintWriter pw = new PrintWriter("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json");
+		
+		pw.write(arr.toJSONString()
+				.replace("\"name", "\n\t\"name")
+				.replace("\"accountnumber-1", "\n\t\"accountnumber-1")
+				.replace("\"accountBalance-1", "\n\t\"accountBalance-1")
+				.replace("\"creditCard-1", "\n\t\"creditCard-1")
+				.replace("\"pin-1", "\n\t\"pin-1")
+				.replace("\"accountnumber-2", "\n\t\"accountnumber-2")
+				.replace("\"accountBalance-2", "\n\t\"accountBalance-2")
+				.replace("\"creditcard-2", "\n\t\"creditcard-2")
+				.replace("\"pin-2", "\n\t\"pin-2")
+				.replace("},{", "},\n\n\t{")
+				);
+		
+		pw.flush();
+		pw.close();
+		
+	}
+	
+	/**
+	 * 
 	 * @return
 	 * @throws FileNotFoundException
 	 * @throws ParseException
 	 * @throws IOException
+	 * Author: Cantrell Picou Jr.
 	 */
 	
 	public ArrayList<loyaltyAccounts> loyaltyAccArr() throws FileNotFoundException, ParseException, IOException {
@@ -300,7 +423,7 @@ import org.json.simple.parser.ParseException;
 			
 			JSONObject arrItem = (JSONObject) itterate.next();
 			
-			int points = (int) arrItem.get("points");
+			int points = Integer.parseInt(String.valueOf(arrItem.get("points")));
 			String pin = (String) arrItem .get("pin");
 			String phoneNumber = (String) arrItem.get("phonenumber");
 			String name = (String) arrItem.get("name");
@@ -311,6 +434,44 @@ import org.json.simple.parser.ParseException;
 		
 		
 		return loyaltyAccArr;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws ParseException
+	 * @throws IOException
+	 * Author: Cantrell Picou Jr.
+	 */
+	public ArrayList<bankInfo> bankInfoArr() throws FileNotFoundException, ParseException, IOException {
+		
+		JSONParser parse = new JSONParser();
+		JSONArray arr = (JSONArray) parse.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json"));
+		
+		Iterator itterate = arr.iterator();
+		
+		while(itterate.hasNext()) {
+			
+			JSONObject arrItem = (JSONObject) itterate.next();
+			
+			String name = (String) arrItem.get("name");
+			String accNum1 = (String) arrItem.get("accountnumber-1");
+			double acctBal1 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-1")));
+			String cc1 = (String) arrItem.get("creditCard-1");
+			int pin1 = Integer.parseInt(String.valueOf(arrItem.get("pin-1")));
+			String accNum2 = (String) arrItem.get("accountnumber-2");
+			double acctBal2 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-2")));
+			String cc2 = (String) arrItem.get("creditCard-2");
+			int pin2 = Integer.parseInt(String.valueOf(arrItem.get("pin-2")));
+					
+			bankInfoArr.add(new bankInfo(name, accNum1, acctBal1, cc1, pin1, accNum2, acctBal2, cc2, pin2));
+	
+			
+		}
+		
+		return bankInfoArr;
+		
 	}
 		
 }
