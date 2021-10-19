@@ -20,7 +20,7 @@ import org.json.simple.parser.ParseException;
 	 ArrayList<bankInfo> bankInfoArr = new ArrayList<bankInfo>();
 	
 	/**
-	 * 
+	 * This function creates an account and stores it in the loyalAccounts.json
 	 * 
 	 * @param name
 	 * @param phoneNumber
@@ -57,6 +57,7 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function adds points to the correct customers accounts.
 	 * 
 	 * @param phoneNumber
 	 * @param points
@@ -103,6 +104,7 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function subtracts points from the correct customers account.
 	 * 
 	 * @param phoneNumber
 	 * @param points
@@ -149,6 +151,7 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function decreases the inventory quantity.
 	 * 
 	 * @param itemId
 	 * @param quantity
@@ -203,6 +206,7 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function increases the inventory quantity.
 	 * 
 	 * @param itemId
 	 * @param quantity
@@ -256,41 +260,9 @@ import org.json.simple.parser.ParseException;
 		
 	}
 	
+
 	/**
-	 * 
-	 * @return
-	 * @throws FileNotFoundException
-	 * @throws IOException
-	 * @throws ParseException
-	 * Author: Cantrell Picou Jr.
-	 */
-	public ArrayList<inventory> invArr() throws FileNotFoundException, IOException, ParseException {
-		
-		JSONParser parser = new JSONParser();
-		JSONArray array = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/inventory.json"));
-		
-		Iterator itterate = array.iterator();
-		
-		while(itterate.hasNext()) {
-			
-			JSONObject arrItem = (JSONObject) itterate.next();
-			
-			float price = Float.parseFloat(String.valueOf(arrItem.get("price")));
-			String name = (String) arrItem.get("name");
-			int available = Integer.parseInt(String.valueOf(arrItem.get("available")));
-			int threshold = Integer.parseInt(String.valueOf(arrItem.get("threshold")));
-			int points = Integer.parseInt(String.valueOf(arrItem.get("points")));
-			Boolean bulk = (Boolean) arrItem.get("bulk");
-			String id = (String) arrItem.get("id");
-			
-			invArr.add(new inventory(price, name, available, threshold, points, bulk, id));
-			
-		}
-		
-		return invArr;
-	}
-	
-	/**
+	 * This function increases the account balance.
 	 * 
 	 * @param cc1
 	 * @param cc2
@@ -347,6 +319,7 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function decreases the account balance.
 	 * 
 	 * @param cc1
 	 * @param cc2
@@ -404,6 +377,43 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function creates an array list for the inventory.
+	 * 
+	 * @return invArr
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ParseException
+	 * Author: Cantrell Picou Jr.
+	 */
+	public ArrayList<inventory> invArr() throws FileNotFoundException, IOException, ParseException {
+		
+		JSONParser parser = new JSONParser();
+		JSONArray array = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/inventory.json"));
+		
+		Iterator itterate = array.iterator();
+		
+		while(itterate.hasNext()) {
+			
+			JSONObject arrItem = (JSONObject) itterate.next();
+			
+			float price = Float.parseFloat(String.valueOf(arrItem.get("price")));
+			String name = (String) arrItem.get("name");
+			int available = Integer.parseInt(String.valueOf(arrItem.get("available")));
+			int threshold = Integer.parseInt(String.valueOf(arrItem.get("threshold")));
+			int points = Integer.parseInt(String.valueOf(arrItem.get("points")));
+			Boolean bulk = (Boolean) arrItem.get("bulk");
+			String id = (String) arrItem.get("id");
+			
+			invArr.add(new inventory(price, name, available, threshold, points, bulk, id));
+			
+		}
+		
+		return invArr;
+	}
+	
+	
+	/**
+	 * This function creates an array list for the loyalty accounts.
 	 * 
 	 * @return
 	 * @throws FileNotFoundException
@@ -437,6 +447,7 @@ import org.json.simple.parser.ParseException;
 	}
 	
 	/**
+	 * This function creates an array list for the bank accounts. 
 	 * 
 	 * @return
 	 * @throws FileNotFoundException
