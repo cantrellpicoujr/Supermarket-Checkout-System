@@ -8,6 +8,7 @@ public class inventory {
 	int points;
 	boolean bulk;
 	String id;
+	int quantityPurchased;
 	
 	inventory(float price, String name, int available, int threshold, int points, boolean bulk, String id) {
 		
@@ -20,6 +21,18 @@ public class inventory {
 		this.id = id;
 			
 	}
+	
+	inventory(float price, String name, int points, String id, int quantityPurchased) {
+		
+		this.price = price;
+		this.name = name;
+		this.points = points;
+		this.id = id;
+		this.quantityPurchased = quantityPurchased;
+		
+	}
+	
+	
 	
 	float getPrice() {
 		
@@ -62,5 +75,13 @@ public class inventory {
 		return id;
 		
 	}
+	
+	int getQuantityPurchased() {
+		
+		return quantityPurchased;
+		
+	}
+	
+	
 	
 }

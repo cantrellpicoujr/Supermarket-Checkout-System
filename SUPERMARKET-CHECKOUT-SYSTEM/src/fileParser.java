@@ -199,7 +199,6 @@ import org.json.simple.parser.ParseException;
 			pw.flush();
 			
 			
-			
 		}
 		
 		
@@ -254,9 +253,7 @@ import org.json.simple.parser.ParseException;
 			pw.flush();
 			
 			
-			
 		}
-		
 		
 	}
 	
@@ -421,7 +418,6 @@ import org.json.simple.parser.ParseException;
 	 * @throws IOException
 	 * Author: Cantrell Picou Jr.
 	 */
-	
 	public ArrayList<loyaltyAccounts> loyaltyAccArr() throws FileNotFoundException, ParseException, IOException {
 		
 		JSONParser parser = new JSONParser();
@@ -441,7 +437,6 @@ import org.json.simple.parser.ParseException;
 			loyaltyAccArr.add(new loyaltyAccounts(name, pin, phoneNumber, points));
 			
 		}
-		
 		
 		return loyaltyAccArr;
 	}
@@ -478,7 +473,6 @@ import org.json.simple.parser.ParseException;
 					
 			bankInfoArr.add(new bankInfo(name, accNum1, acctBal1, cc1, pin1, accNum2, acctBal2, cc2, pin2));
 	
-			
 		}
 		
 		return bankInfoArr;
