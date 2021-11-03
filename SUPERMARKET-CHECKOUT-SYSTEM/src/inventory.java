@@ -9,6 +9,7 @@ public class inventory {
 	boolean bulk;
 	String id;
 	int quantityPurchased;
+	float weight;
 	
 	inventory(float price, String name, int available, int threshold, int points, boolean bulk, String id) {
 		
@@ -31,7 +32,6 @@ public class inventory {
 		this.quantityPurchased = quantityPurchased;
 		
 	}
-	
 	
 	
 	float getPrice() {
@@ -79,6 +79,12 @@ public class inventory {
 	int getQuantityPurchased() {
 		
 		return quantityPurchased;
+		
+	}
+	
+	float getWeight() {
+		
+		return weight;
 		
 	}
 	

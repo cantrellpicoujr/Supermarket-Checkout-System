@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -12,13 +13,18 @@ public class checkoutController implements ActionListener {
 	
 	private JFrame mainMenuFrame = new JFrame();
 	private JFrame checkOutFrame = new JFrame();
+	private JFrame scaleFrame = new JFrame();
+	private JFrame customerDisplayFrame = new JFrame();
+	
 	private JPanel mainMenuPanel = new JPanel();
 	private JPanel checkOutPanel = new JPanel();
 	private JPanel customerDisplayPanel = new JPanel();
+	private JPanel scalePanel = new JPanel();
 	
 	private JLabel welcomeLabel;
 	private JLabel checkOutLabel;
 	private JLabel itemIdLabel;
+	private JLabel enterWeightLabel;
 	
 	private JButton cashierButton;
 	private JButton managerButton;
@@ -38,15 +44,28 @@ public class checkoutController implements ActionListener {
 	private JButton totalButton;
 	private JButton exitButton;
 	
+	private JTextField weightTextField;
+	
 	private JTextArea itemIdTextArea;
 	private JTextArea order;
+	private JTextArea customerOrderTextArea;
+	
+	Boolean firstItemScanned = false;
+	
+	String weight = "0";
 	
 	ArrayList<inventory> items = new ArrayList<inventory>();
 	ArrayList<inventory> cart = new ArrayList<inventory>();
 	
+	loyaltyController createAccFrame = new loyaltyController(); 
+	
 	int W = 1000;
 	int H = 1000;
 	
+	
+	/**
+	 * 
+	 */
 	public void mainMenuFrame() {
 		
 		mainMenuFrame.setSize(W,H);
@@ -63,6 +82,9 @@ public class checkoutController implements ActionListener {
 		
 	}
 	
+	/**
+	 * 
+	 */
 	public void checkOutFrame() {
 		
 		checkOutFrame.setSize(W,H);
@@ -71,11 +93,43 @@ public class checkoutController implements ActionListener {
 		checkOutFrame.setVisible(false);
 		
 		createCheckOutPanel();
+		customerDisplayFrame();
 		
 		checkOutFrame.setContentPane(checkOutPanel);
 		
 
 		checkOutPanel.setVisible(true);
+		
+	}
+	
+	public void scaleFrame() {
+		
+		scaleFrame.setSize(300,200);
+		scaleFrame.setTitle("SCALE");
+		scaleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		scaleFrame.setVisible(true);
+		
+		createScalePanel();
+		
+		scaleFrame.setContentPane(scalePanel);
+		
+		scalePanel.setVisible(true);
+		
+	}
+	
+	public void customerDisplayFrame() {
+		
+		customerDisplayFrame.setSize(W,H);
+		customerDisplayFrame.setTitle("CUSTOMER DISPLAY");
+		customerDisplayFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		customerDisplayFrame.setVisible(false);
+		
+		createCustomerDisplayPanel();
+		
+		customerDisplayFrame.setContentPane(customerDisplayPanel);
+		
+		customerDisplayFrame.setVisible(true);
+		
 		
 	}
 	
@@ -85,7 +139,7 @@ public class checkoutController implements ActionListener {
 		
 		checkOutFrame.setVisible(false);
 		mainMenuFrame.setVisible(true);
-		mainMenuFrame.setContentPane(mainMenuPanel);
+		customerDisplayFrame.setVisible(false);
 		
 	}
 	
@@ -93,7 +147,67 @@ public class checkoutController implements ActionListener {
 		
 		mainMenuFrame.setVisible(false);
 		checkOutFrame.setVisible(true);
-		checkOutFrame.setContentPane(checkOutPanel);
+		customerDisplayFrame.setVisible(true);
+		
+	}
+	
+	// Creates scale components and frame
+	
+	JPanel createScalePanel() {
+		
+		scalePanel.setLayout(null);
+		
+		scalePanel.add(createWeightTextField());
+		scalePanel.add(createEnterWeightLabel());
+		scalePanel.add(createScaleButton());
+		
+		
+		return scalePanel;
+		
+		
+	}
+	
+	JTextField createWeightTextField() {
+		
+		weightTextField = new JTextField();
+		weightTextField.setBounds(140,50,70,50);
+		
+		return weightTextField;
+		
+	}
+	
+	JLabel createEnterWeightLabel() {
+		
+		enterWeightLabel = new JLabel("Enter weight:");
+		enterWeightLabel.setBounds(50,50,100,50);
+		
+		return enterWeightLabel;
+		
+	}
+	
+	JButton createScaleButton() {
+		
+		scaleButton = new JButton("SCALE");
+		scaleButton.setBounds(110,100,100,50);
+		
+		scaleButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					addItemToCart(itemIdTextArea.getText(), weightTextField.getText());	
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				
+				scaleFrame.setVisible(false);
+				itemIdTextArea.setText("");
+				
+			}
+			
+		});
+		
+		return scaleButton;
 		
 	}
 	
@@ -148,6 +262,29 @@ public class checkoutController implements ActionListener {
 	
 	///////////////////////////////////
 	
+	// Creates customer display panel and components 
+	
+	JPanel createCustomerDisplayPanel() {
+		
+		customerDisplayPanel.setLayout(null);
+		
+		customerDisplayPanel.add(createCustomerDisplayTextArea());
+		
+		return customerDisplayPanel;
+		
+		
+	}
+	
+	JTextArea createCustomerDisplayTextArea() {
+		
+		customerOrderTextArea = new JTextArea();
+		customerOrderTextArea.setBounds(240,220,500,500);
+		customerOrderTextArea.setEditable(false);
+		
+		return customerOrderTextArea;
+		
+	}
+
 	// Creates checkout panel and components
 	
 	JPanel createCheckOutPanel() {
@@ -168,14 +305,12 @@ public class checkoutController implements ActionListener {
 		checkOutPanel.add(createZeroButton());
 		checkOutPanel.add(createItemIdButton());
 		checkOutPanel.add(createItemIdTextArea());
-		checkOutPanel.add(createScaleButton());
 		checkOutPanel.add(createItemIdLabel());
 		checkOutPanel.add(createCreateLoyaltyAccButton());
 		checkOutPanel.add(createTotalButton());
 		checkOutPanel.add(createOrderTextArea());
 		
 		return checkOutPanel;
-		
 		
 	}
 	
@@ -203,7 +338,6 @@ public class checkoutController implements ActionListener {
 			
 		});
 		return exitButton;
-		
 		
 	}
 	
@@ -410,40 +544,60 @@ public class checkoutController implements ActionListener {
 		
 	}
 	
-	JButton createItemIdButton() {
+	JButton createItemIdButton(){
 		
 		itemIdButton = new JButton("ITEM-ID");
-		itemIdButton.setBounds(690,540,100,50);
+		itemIdButton.setBounds(735,540,100,50);
+		fileParser obj = new fileParser();
+		
 		
 		itemIdButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
+					items = obj.invArr();
 					
-					addItemToCart(itemIdTextArea.getText());
+					if(!firstItemScanned) {
+						
+						createAccFrame.createVerifyAccFrame();
+						
+						firstItemScanned = true;
+						
+					}
 					
- 				}catch(Exception m) {
- 					
- 					m.printStackTrace();
- 					
- 				}
+					for(inventory item:items) {
+			
+						if(item.getId().equals(itemIdTextArea.getText()) & item.bulk == true) {
+							
+							scaleFrame();
+							break;
+							
+						} else {
+							
+							addItemToCart(itemIdTextArea.getText(), "0");
+							itemIdTextArea.setText("");
+							break;
+							
+						}
+						
+					}
+							
+ 				}catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 				
-				itemIdTextArea.setText("");
 			}
 			
 		});
 		
 		return itemIdButton;
-		
-	}
-	
-	JButton createScaleButton() {
-		
-		scaleButton = new JButton("SCALE");
-		scaleButton.setBounds(790,540,100,50);
-		
-		return scaleButton;
 		
 	}
 	
@@ -469,6 +623,15 @@ public class checkoutController implements ActionListener {
 		
 		createLoyaltyAccButton = new JButton("CREATE LOYALTY ACCOUNT");
 		createLoyaltyAccButton.setBounds(390,830,200,50);
+		createLoyaltyAccButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				createAccFrame.createLoyaltyFrame(); 
+				
+			}
+			
+		});
 		
 		return createLoyaltyAccButton;
 		
@@ -496,17 +659,6 @@ public class checkoutController implements ActionListener {
 
 	//////////////////////////////////
 	
-	// Creates customer display panel and display
-	
-	JPanel createsCustomerDisplayPanel() {
-		
-		customerDisplayPanel.setLayout(null);
-		
-		return customerDisplayPanel;
-		
-	}
-	
-	//////////////////////////////////
 	
 	
 	/**
@@ -516,9 +668,11 @@ public class checkoutController implements ActionListener {
 	 * @throws ParseException
 	 * @throws Exception
 	 */
-	void addItemToCart(String id) throws FileNotFoundException, ParseException, Exception {
+	void addItemToCart(String id, String weight) throws FileNotFoundException, ParseException, Exception {
 		fileParser obj = new fileParser();
-		items = obj.invArr();
+		items = obj.invArr();		
+		
+		Double total = 0.00;
 		
 		Boolean inCart = false;
 		
@@ -527,52 +681,72 @@ public class checkoutController implements ActionListener {
 			if(id.equals(item.getId())) {
 				
 				for(inventory itemInCart:cart) {
-					
+						
 					if(itemInCart.getId().equals(id)) {
 						
-						inCart = true;
-						itemInCart.quantityPurchased++;
-						break;
-						
-					}
-					
-				}
-				if(!inCart) {
+						if(itemInCart.bulk == true) {
+							
+							inCart = true;
+							itemInCart.weight += 0.0;
+							itemInCart.quantityPurchased++;
+							break;
+							
+						} else {
+							
+							inCart = true;
+							itemInCart.quantityPurchased++;
+							break;
+							
+						}
+							
+					}					
 
+				}
+				if(!inCart) {		
+					item.weight = Float.parseFloat(weight);
 					cart.add(item);
 					item.quantityPurchased++;
-					
 				}
 				
 				break;
 				
-			} 
+			}
  			
 		}
 		
 		order.setText("");
+		customerOrderTextArea.setText("");
 		
 		for(inventory cartItem:cart) {
 			
-			//System.out.println(cartItem.getName());
-			//System.out.println(cartItem.getQuantityPurchased());
-			
-
+		
 			for(int i = 0; cartItem.quantityPurchased > i; i++) {
 				
-				order.append(cartItem.getName() + ".......$" + cartItem.getPrice() + "\n");
+				if(cartItem.getWeight() > 0) {
+					
+					order.append(cartItem.getName() + ".......$" + cartItem.getPrice() + "............Weight:" + cartItem.getWeight() + "\n");
+					customerOrderTextArea.append(cartItem.getName() + ".......$" + cartItem.getPrice() + "............Weight:" + cartItem.getWeight() + "\n");
+					
+				} else {
+	
+					order.append(cartItem.getName() + ".......$" + cartItem.getPrice() + "\n");
+					customerOrderTextArea.append(cartItem.getName() + ".......$" + cartItem.getPrice() + "\n");
+					
+				}
+				
+				total += cartItem.getPrice();
 				
 			}
 
-			
 		}
 		
 		order.append("................................\n");
+		order.append("Total:" + total + "\n");
+		customerOrderTextArea.append("................................\n");
+		customerOrderTextArea.append("Total:" + total + "\n");
 		
 	}
 	
-	
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		

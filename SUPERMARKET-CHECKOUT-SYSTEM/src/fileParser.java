@@ -46,7 +46,7 @@ import org.json.simple.parser.ParseException;
 		PrintWriter pw = new PrintWriter("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/loyalAccounts.json");
 		pw.write(array.toJSONString()
 				.replace("\"Name", "\n\t\"Name")
-				.replace("\"phoneNumber", "\n\t\"phoneNumber")
+				.replace("\"PhoneNumber", "\n\t\"PhoneNumber")
 				.replace("\"Pin", "\n\t\"Pin")
 				.replace("\"Points", "\n\t\"Points")
 				.replace("},{", "},\n\n\t{")
@@ -429,10 +429,10 @@ import org.json.simple.parser.ParseException;
 			
 			JSONObject arrItem = (JSONObject) itterate.next();
 			
-			int points = Integer.parseInt(String.valueOf(arrItem.get("points")));
-			String pin = (String) arrItem .get("pin");
-			String phoneNumber = (String) arrItem.get("phonenumber");
-			String name = (String) arrItem.get("name");
+			int points = Integer.parseInt(String.valueOf(arrItem.get("Points")));
+			String pin = (String) arrItem .get("Pin");
+			String phoneNumber = (String) arrItem.get("PhoneNumber");
+			String name = (String) arrItem.get("Name");
 			
 			loyaltyAccArr.add(new loyaltyAccounts(name, pin, phoneNumber, points));
 			
