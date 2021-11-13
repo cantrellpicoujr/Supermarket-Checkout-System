@@ -59,6 +59,8 @@ public class checkoutController implements ActionListener {
 	
 	loyaltyController createAccFrame = new loyaltyController(); 
 	
+	inventoryController createInventoryFrame = new inventoryController();
+	
 	int W = 1000;
 	int H = 1000;
 	
@@ -255,6 +257,16 @@ public class checkoutController implements ActionListener {
 		
 		managerButton = new JButton("MANAGER");
 		managerButton.setBounds(500,480,250,100);
+		
+		managerButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				createInventoryFrame.createMainInventoryFrame();
+				
+			}
+			
+		});
 		
 		return managerButton;
 		
