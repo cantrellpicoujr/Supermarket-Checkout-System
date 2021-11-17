@@ -55,7 +55,7 @@ public class checkoutController implements ActionListener {
 	String weight = "0";
 	
 	ArrayList<inventory> items = new ArrayList<inventory>();
-	ArrayList<inventory> cart = new ArrayList<inventory>();
+	static ArrayList<inventory> cart = new ArrayList<inventory>();
 	
 	loyaltyController createAccFrame = new loyaltyController(); 
 	
@@ -654,6 +654,17 @@ public class checkoutController implements ActionListener {
 		totalButton = new JButton("TOTAL");
 		totalButton.setBounds(680,830,200,50);
 		
+		totalButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				paymentController obj = new paymentController();
+				obj.printCart();
+				
+			}
+			
+		});
+		
 		return totalButton;
 		
 	}
@@ -758,6 +769,13 @@ public class checkoutController implements ActionListener {
 		customerOrderTextArea.append("Total:" + total + "\n");
 		
 	}
+	
+	public ArrayList<inventory> getOrder() {
+		
+		return cart;
+		
+	}
+	
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
