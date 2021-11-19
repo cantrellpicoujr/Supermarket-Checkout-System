@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -51,7 +50,7 @@ public class checkoutController implements ActionListener {
 	private JTextArea customerOrderTextArea;
 	
 	Boolean firstItemScanned = false;
-	
+	Double total = 0.00;
 	String weight = "0";
 	
 	ArrayList<inventory> items = new ArrayList<inventory>();
@@ -338,14 +337,19 @@ public class checkoutController implements ActionListener {
 	JButton createExitButton() {
 		
 		exitButton = new JButton("Exit");
-		exitButton.setBounds(100,830,200,50);
+		exitButton.setBounds(100,730,200,50);
 		
 		exitButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
 				switchToMainMenuFrame();
-				
+				itemIdTextArea.setText("");
+				customerOrderTextArea.setText("");
+				order.setText("");
+				cart.clear();
+				total = 0.00;		
+				firstItemScanned = false;
 			}
 			
 		});
@@ -660,6 +664,8 @@ public class checkoutController implements ActionListener {
 				
 				paymentController obj = new paymentController();
 				obj.printCart();
+				obj.cashierDisplayFrame();
+
 				
 			}
 			
@@ -692,11 +698,9 @@ public class checkoutController implements ActionListener {
 	 * @throws Exception
 	 */
 	void addItemToCart(String id, String weight) throws FileNotFoundException, ParseException, Exception {
+		String formattedTotal;
 		fileParser obj = new fileParser();
-		items = obj.invArr();		
-		
-		Double total = 0.00;
-		
+		items = obj.invArr();			
 		Boolean inCart = false;
 		
 		for(inventory item:items) {
@@ -763,10 +767,12 @@ public class checkoutController implements ActionListener {
 
 		}
 		
+		formattedTotal = String.format("%.2f", total);
+
 		order.append("................................\n");
-		order.append("Total:" + total + "\n");
+		order.append("Total:" + formattedTotal + "\n");
 		customerOrderTextArea.append("................................\n");
-		customerOrderTextArea.append("Total:" + total + "\n");
+		customerOrderTextArea.append("Total:" + formattedTotal + "\n");
 		
 	}
 	

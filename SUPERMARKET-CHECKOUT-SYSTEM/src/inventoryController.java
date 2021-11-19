@@ -1,7 +1,10 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.*;
+
+import org.json.simple.parser.ParseException;
 
 public class inventoryController implements ActionListener {
 	
@@ -270,7 +273,7 @@ public class inventoryController implements ActionListener {
 		if(item.getBulk()) inventoryItemPanel.add(createItemWeight(item.getWeight()));
 		if(item.getAvailable() < item.getThreshold()) {
 			inventoryItemPanel.add(createOrderQuantity());
-			inventoryItemPanel.add(createPlaceOrderButton());
+			inventoryItemPanel.add(createPlaceOrderButton(item.getId()));
 		}
 		inventoryItemPanel.add(createItemCancelButton());
 		inventoryItemPanel.add(createOrderErrorMessage());
@@ -332,7 +335,7 @@ public class inventoryController implements ActionListener {
 		return orderQuantity;
 	}
 	
-	JButton createPlaceOrderButton() {
+	JButton createPlaceOrderButton(String id) {
 		
 		placeOrderButton = new JButton("PLACE ORDER");
 		placeOrderButton.setBounds(240, 208, 100, 35);
@@ -343,11 +346,18 @@ public class inventoryController implements ActionListener {
 				
 				try {
 					
-					Integer.parseInt(orderQuantity.getText());
-					orderErrorMessage.setVisible(false);
-					orderSuccessMessage.setVisible(true);
+					int order = Integer.parseInt(orderQuantity.getText());
+					if(order > 0) {
+						orderErrorMessage.setVisible(false);
+						orderSuccessMessage.setVisible(true);
+						obj.increaseInventoryQuantity(id, order);
+					}
+					else {
+						orderSuccessMessage.setVisible(false);
+						orderErrorMessage.setVisible(true);
+					}
 				}
-				catch(NumberFormatException e1) {
+				catch(NumberFormatException | IOException | ParseException e1) {
 					
 					orderSuccessMessage.setVisible(false);
 					orderErrorMessage.setVisible(true);
