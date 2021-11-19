@@ -165,7 +165,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parser = new JSONParser();
 		JSONArray array = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/inventory.json"));
 		
-		Iterator itterate = array.iterator();
+		Iterator<?> itterate = array.iterator();
 		
 		while(itterate.hasNext()) {
 			
@@ -219,7 +219,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parser = new JSONParser();
 		JSONArray array = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/inventory.json"));
 		
-		Iterator itterate = array.iterator();
+		Iterator<?> itterate = array.iterator();
 		
 		while(itterate.hasNext()) {
 			
@@ -273,7 +273,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parser = new JSONParser();
 		JSONArray arr = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json"));
 		
-		Iterator itterate = arr.iterator();
+		Iterator<?> itterate = arr.iterator();
 		
 		while(itterate.hasNext()) {
 			
@@ -330,7 +330,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parser = new JSONParser();
 		JSONArray arr = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json"));
 		
-		Iterator itterate = arr.iterator();
+		Iterator<?> itterate = arr.iterator();
 		
 		while(itterate.hasNext()) {
 			
@@ -387,7 +387,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parser = new JSONParser();
 		JSONArray array = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/inventory.json"));
 		
-		Iterator itterate = array.iterator();
+		Iterator<?> itterate = array.iterator();
 		
 		while(itterate.hasNext()) {
 			
@@ -423,7 +423,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parser = new JSONParser();
 		JSONArray array = (JSONArray) parser.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/loyalAccounts.json"));
 		
-		Iterator itterate = array.iterator();
+		Iterator<?> itterate = array.iterator();
 		
 		while(itterate.hasNext()) {
 			
@@ -455,7 +455,7 @@ import org.json.simple.parser.ParseException;
 		JSONParser parse = new JSONParser();
 		JSONArray arr = (JSONArray) parse.parse(new FileReader("/Users/cantrellpicoujr/Documents/CS_3365-Software-Engineering/Supermarket-Checkout-System/bankInfo.json"));
 		
-		Iterator itterate = arr.iterator();
+		Iterator<?> itterate = arr.iterator();
 		
 		while(itterate.hasNext()) {
 			
