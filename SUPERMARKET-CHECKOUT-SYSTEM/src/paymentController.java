@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class paymentController implements ActionListener {
+public class paymentController implements ActionListener{
 	
 	private JFrame customerDisplayFrame = new JFrame();
 	private JFrame cashierDisplayFrame = new JFrame();
@@ -75,6 +75,34 @@ public class paymentController implements ActionListener {
 	
 	String weight = "0";
 	
+	/**
+	 * Place this block of code where the debit/credit will be called,
+	 */
+	
+	/*
+	buffer buff = new buffer();
+	
+	store storeObj = new store(buff, "1111111111111111", "1111", 1.00); //First argument is number, second is pin, third is total 
+	
+	bank bankObj = new bank(buff);
+	
+	authorizationNumber authNumObj = new authorizationNumber(buff);
+	
+	
+	try { 
+		
+		bankObj.t.join();
+		storeObj.t.join();
+		authNumObj.t.join();
+		
+	} catch(InterruptedException e) {
+		
+		
+	}
+	
+	System.out.println(authNumObj.reply); // makes sure you are getting back authorization number
+	*/
+		
 	//checkoutController checkout = new checkoutController();
 	
 	loyaltyController createAccFrame = new loyaltyController(); 

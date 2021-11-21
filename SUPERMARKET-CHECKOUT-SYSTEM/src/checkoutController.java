@@ -337,7 +337,7 @@ public class checkoutController implements ActionListener {
 	JButton createExitButton() {
 		
 		exitButton = new JButton("Exit");
-		exitButton.setBounds(100,730,200,50);
+		exitButton.setBounds(100,830,200,50);
 		
 		exitButton.addActionListener(new ActionListener() {
 			

@@ -5,13 +5,13 @@ public class bankInfo {
 	String acctNum1;
 	double acctBal1;
 	String creditCardNum1;
-	int pin1;
+	String pin1;
 	String acctNum2;
 	double acctBal2;
 	String creditCardNum2;
-	int pin2;
+	String pin2;
 	
-	bankInfo(String name, String acctNum1, double acctBal1, String creditCardNum1, int pin1, String acctNum2, double acctBal2, String creditCardNum2, int pin2) {
+	bankInfo(String name, String acctNum1, double acctBal1, String creditCardNum1, String pin1, String acctNum2, double acctBal2, String creditCardNum2, String pin2) {
 		
 		this.name = name;
 		this.acctNum1 = acctNum1;
@@ -50,7 +50,7 @@ public class bankInfo {
 		
 	}
 	
-	int getPin1() {
+	String getPin1() {
 		
 		return pin1;
 	}
@@ -73,7 +73,7 @@ public class bankInfo {
 		
 	}
 	
-	int getPin2() {
+	String getPin2() {
 		
 		return pin2;
 		

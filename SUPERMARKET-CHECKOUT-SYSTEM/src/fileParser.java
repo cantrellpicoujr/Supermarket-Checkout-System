@@ -465,11 +465,11 @@ import org.json.simple.parser.ParseException;
 			String accNum1 = (String) arrItem.get("accountnumber-1");
 			double acctBal1 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-1")));
 			String cc1 = (String) arrItem.get("creditCard-1");
-			int pin1 = Integer.parseInt(String.valueOf(arrItem.get("pin-1")));
+			String pin1 = (String) arrItem.get("pin-1");
 			String accNum2 = (String) arrItem.get("accountnumber-2");
 			double acctBal2 = Double.parseDouble(String.valueOf(arrItem.get("accountBalance-2")));
 			String cc2 = (String) arrItem.get("creditCard-2");
-			int pin2 = Integer.parseInt(String.valueOf(arrItem.get("pin-2")));
+			String pin2 = (String) arrItem.get("pin-2");
 					
 			bankInfoArr.add(new bankInfo(name, accNum1, acctBal1, cc1, pin1, accNum2, acctBal2, cc2, pin2));
 	
