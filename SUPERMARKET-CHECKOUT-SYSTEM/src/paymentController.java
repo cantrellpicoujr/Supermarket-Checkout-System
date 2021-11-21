@@ -80,27 +80,25 @@ public class paymentController implements ActionListener{
 	 */
 	
 	/*
-	buffer buff = new buffer();
-	
-	store storeObj = new store(buff, "1111111111111111", "1111", 1.00); //First argument is number, second is pin, third is total 
-	
-	bank bankObj = new bank(buff);
-	
-	authorizationNumber authNumObj = new authorizationNumber(buff);
-	
-	
-	try { 
+		buffer buff = new buffer();
 		
-		bankObj.t.join();
-		storeObj.t.join();
-		authNumObj.t.join();
+		store storeObj = new store(buff, "1111111111111111", "1111", 1.00);
 		
-	} catch(InterruptedException e) {
+		bank bankObj = new bank(buff);
+
 		
 		
-	}
-	
-	System.out.println(authNumObj.reply); // makes sure you are getting back authorization number
+		try { 
+			
+			bankObj.t.join();
+			storeObj.t.join();
+			
+		} catch(InterruptedException e) {
+			
+			
+		}
+		
+		System.out.println(buff.reply); // makes sure you are getting back authorization number
 	*/
 		
 	//checkoutController checkout = new checkoutController();
