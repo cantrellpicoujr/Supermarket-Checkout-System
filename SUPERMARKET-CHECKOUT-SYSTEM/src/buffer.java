@@ -17,7 +17,7 @@ public class buffer {
 			try {
 				
 				wait();
-				Thread.sleep(500);
+
 
 				
 			} catch(InterruptedException e) {
@@ -44,7 +44,6 @@ public class buffer {
 			try {
 				
 				wait();
-				Thread.sleep(500);
 
 			} catch(InterruptedException e) {
 				
@@ -68,8 +67,7 @@ public class buffer {
 			try {
 				
 				wait();
-				Thread.sleep(500);
-				
+
 			} catch(InterruptedException e) {
 				
 				
@@ -93,7 +91,7 @@ public class buffer {
 				
 				
 				wait();
-				Thread.sleep(500);
+
 
 				
 			} catch(InterruptedException e) {
@@ -118,7 +116,7 @@ public class buffer {
 			try {
 				
 				wait();
-				Thread.sleep(500);
+
 		
 				
 			} catch(InterruptedException e) {
@@ -142,7 +140,7 @@ public class buffer {
 			try {
 				
 				wait();
-				Thread.sleep(500);
+
 
 				
 			} catch(InterruptedException e) {

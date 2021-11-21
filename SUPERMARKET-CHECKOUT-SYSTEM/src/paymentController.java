@@ -75,6 +75,8 @@ public class paymentController implements ActionListener{
 	
 	String weight = "0";
 	
+	checkoutController controllerObj = new checkoutController();
+	
 	/**
 	 * Place this block of code where the debit/credit will be called,
 	 */
@@ -621,6 +623,9 @@ public class paymentController implements ActionListener{
 				// also make sure to delete everything inside the cart
 				customerDisplayFrame.setVisible(false);
 				cashierDisplayFrame.setVisible(false);
+				
+				controllerObj.mainMenuFrame();
+				
 				
 			}
 			

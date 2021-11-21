@@ -665,6 +665,9 @@ public class checkoutController implements ActionListener {
 				paymentController obj = new paymentController();
 				obj.printCart();
 				obj.cashierDisplayFrame();
+				
+				checkOutFrame.setVisible(false);
+				customerDisplayFrame.setVisible(false);
 
 				
 			}
