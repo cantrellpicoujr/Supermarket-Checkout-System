@@ -172,7 +172,7 @@ import org.json.simple.parser.ParseException;
 			JSONObject arrItem = (JSONObject) itterate.next();
 			
 			String id = (String) arrItem.get("id");
-			int available =((int) arrItem.get("available"));
+			int available = ((Long) arrItem.get("available")).intValue();
 			
 			
 			if(itemId.equals(id)) {

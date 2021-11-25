@@ -26,7 +26,7 @@
 	"name":"Ryan Perez",
 	"accountBalance-1":78.02000000000001,
 	"accountnumber-1":"555555",
-	"accountnumber-2":null,
+	"accountnumber-2":"null",
 	"accountBalance-2":0.0},
 
 	{"creditCard-2":"0000",
@@ -36,5 +36,5 @@
 	"name":"Nicolas Infante",
 	"accountBalance-1":89.01,
 	"accountnumber-1":"666666",
-	"accountnumber-2":null,
+	"accountnumber-2":"null,
 	"accountBalance-2":0.0}]

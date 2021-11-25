@@ -1158,7 +1158,6 @@ public class paymentController implements ActionListener{
 			
 		});
 		
-		
 		return creditButton;
 		
 	}
@@ -1176,8 +1175,5 @@ public class paymentController implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		
-		
 	}
-	
-
 }
