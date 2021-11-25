@@ -20,10 +20,6 @@ public class store implements Runnable {
 		
 		t.start();
 		
-
-		
-		
-		
 	}
 	
 	public void run() {

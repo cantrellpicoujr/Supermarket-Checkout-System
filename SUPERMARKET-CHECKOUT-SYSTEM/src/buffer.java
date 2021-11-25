@@ -17,8 +17,6 @@ public class buffer {
 			try {
 				
 				wait();
-
-
 				
 			} catch(InterruptedException e) {
 				

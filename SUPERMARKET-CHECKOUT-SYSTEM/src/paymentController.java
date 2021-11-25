@@ -75,33 +75,9 @@ public class paymentController implements ActionListener{
 	
 	String weight = "0";
 	
+	String authNum;
+	
 	checkoutController controllerObj = new checkoutController();
-	
-	/**
-	 * Place this block of code where the debit/credit will be called,
-	 */
-	
-	/*
-		buffer buff = new buffer();
-		
-		store storeObj = new store(buff, "1111111111111111", "1111", 1.00);
-		
-		bank bankObj = new bank(buff);
-
-		
-		
-		try { 
-			
-			bankObj.t.join();
-			storeObj.t.join();
-			
-		} catch(InterruptedException e) {
-			
-			
-		}
-		
-		System.out.println(buff.reply); // makes sure you are getting back authorization number
-	*/
 		
 	//checkoutController checkout = new checkoutController();
 	
@@ -136,6 +112,30 @@ public class paymentController implements ActionListener{
 	
 	
 	checkoutController obj = new checkoutController();
+	
+	String getAuthorization(String ccNum, String ccPin, double total) {
+		
+		
+		buffer buff = new buffer();
+		
+		store storeObj = new store(buff, ccNum, ccPin, total);
+		
+		bank bankObj = new bank(buff);
+
+		try { 
+			
+			bankObj.t.join();
+			storeObj.t.join();
+			
+		} catch(InterruptedException e) {
+			
+			
+		}
+		
+		
+		return buff.reply;
+		
+	}
 	
 	
 	public void printCart() {
@@ -1119,6 +1119,11 @@ public class paymentController implements ActionListener{
 				System.out.println("debit");
 				choice = 2;
 				createCustomerDisplayPanel4();
+				
+				authNum = getAuthorization("111111111111111", "1111", 1.00);
+				
+				System.out.println(authNum);
+				
 				//String temp = cashAmountTextArea.getText();
 				//System.out.println("The amount entered is " + temp);
 				

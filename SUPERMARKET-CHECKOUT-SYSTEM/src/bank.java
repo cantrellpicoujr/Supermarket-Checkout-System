@@ -83,6 +83,10 @@ public class bank implements Runnable {
 				authNum = generateAuthNum();
 				buff.getReply(authNum);
 				
+			} else {
+				
+				buff.getReply("FALSE");
+				
 			}
 		} catch (ParseException e) {
 			
